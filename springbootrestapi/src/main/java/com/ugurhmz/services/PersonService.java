@@ -56,7 +56,7 @@ public class PersonService {
 
 
     // READ ALL
-    public List<PersonDTO> getAll(){
+    public List<PersonDTO> findAll(){
 
        List<Person> personDBList =   personRepo.findAll();
        List<PersonDTO> personDTOS = new ArrayList<>();
@@ -84,11 +84,11 @@ public class PersonService {
 
     }
 
-
+/*
     // READ ALL WITH PAGE
-    Page<PersonDTO>   getPageAll(Pageable pageable){
+    Page<PersonDTO>   findPageAll(Pageable pageable){
 
     }
-
+*/
 
 }
