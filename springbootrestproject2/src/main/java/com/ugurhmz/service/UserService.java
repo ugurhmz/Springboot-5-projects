@@ -49,4 +49,43 @@ public class UserService {
 
         return  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
     }
+
+
+
+    // UPDATE USER
+    public User updateMyUser(Long id, User user) {
+
+        // 1- O id'li useri bul.
+        Optional<User> getUserById =   userRepository.findById(id);
+
+        // 2- id'si verilen kaydımız varsa, parametre olarak gelen nesnemizle  güncelleyelim.
+        if (getUserById.isPresent()) {
+
+
+            System.out.println("getUserById : "+getUserById.get());
+
+            getUserById.get().setFirstName(user.getFirstName());
+            getUserById.get().setLastName(user.getLastName());
+            getUserById.get().setUpdatedAt(new Date());
+            getUserById.get().setUpdatedBy("Admin");
+
+           return userRepository.save(getUserById.get());
+        }
+
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
