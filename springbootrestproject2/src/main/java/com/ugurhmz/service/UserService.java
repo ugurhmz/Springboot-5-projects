@@ -68,7 +68,7 @@ public class UserService {
 
 
     // UPDATE USER
-    public User updateMyUser(Long id, User user) {
+    public UserDTO updateMyUser(Long id, UserDTO userdto) {
 
         // 1- O id'li useri bul.
         Optional<User> getUserById =   userRepository.findById(id);
@@ -79,12 +79,13 @@ public class UserService {
 
             System.out.println("getUserById : "+getUserById.get());
 
-            getUserById.get().setFirstName(user.getFirstName());
-            getUserById.get().setLastName(user.getLastName());
+            getUserById.get().setFirstName(userdto.getFirstName());
+            getUserById.get().setLastName(userdto.getLastName());
+            getUserById.get().setEmail(userdto.getEmail());
             getUserById.get().setUpdatedAt(new Date());
             getUserById.get().setUpdatedBy("Admin");
 
-           return userRepository.save(getUserById.get());
+           return  modelMapper.map( userRepository.save(getUserById.get()), UserDTO.class);
         }
 
         return null;
