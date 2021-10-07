@@ -1,9 +1,10 @@
 package com.ugurhmz.api;
 
 
+import com.ugurhmz.model.User;
 import com.ugurhmz.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -19,8 +20,14 @@ public class UserController {
     }
 
 
+    // CREATE USER
+    @PostMapping("/create-user")
+    public ResponseEntity<User> postUser(@RequestBody User user) {
+           User createdUser =  userService.saveUser(user);
+           System.out.println("created : "user+"\n"+createdUser);
 
-
+           return ResponseEntity.ok(createdUser);
+    }
 
 
 
