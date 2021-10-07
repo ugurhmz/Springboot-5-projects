@@ -90,6 +90,19 @@ public class UserService {
 
         return null;
     }
+
+
+
+    // DLETE USER
+    public Boolean deleteUser(Long id) {
+       Optional<User>   getUserByIdForDelete =  userRepository.findById(id);
+
+       if(getUserByIdForDelete.isPresent()){
+          userRepository.deleteById(id);
+          return true;
+       }
+        return false;
+    }
 }
 
 
