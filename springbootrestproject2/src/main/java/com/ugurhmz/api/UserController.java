@@ -1,6 +1,7 @@
 package com.ugurhmz.api;
 
 
+import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,9 @@ public class UserController {
 
     // CREATE USER
     @PostMapping("/create-user")
-    public ResponseEntity<User> postUser(@RequestBody User user) {
-           User createdUser =  userService.saveUser(user);
-           System.out.println("created : "+user+"\n"+createdUser);
-
-           return ResponseEntity.ok(createdUser);
+    public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO) {
+        UserDTO createUser = userService.saveUser(userDTO);
+        return ResponseEntity.ok(createUser);
     }
 
 

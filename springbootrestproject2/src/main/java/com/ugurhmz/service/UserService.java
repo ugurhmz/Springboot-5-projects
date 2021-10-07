@@ -1,10 +1,12 @@
 package com.ugurhmz.service;
 
 
+import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.exception.ResourceNotFoundException;
 import com.ugurhmz.model.User;
 import com.ugurhmz.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,16 +18,16 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
 
     // SAVE USER
-    public User saveUser(User user) {
-
+    public UserDTO saveUser(UserDTO userDTO) {
+        User user = modelMapper.map(userDTO, User.class);
         //Dummy data
         user.setCreatedAt(new Date());
         user.setCreatedBy("ADMIN");
-
-        return userRepository.save(user);
+        return modelMapper.map(userRepository.save(user), UserDTO.class);
     }
 
 
