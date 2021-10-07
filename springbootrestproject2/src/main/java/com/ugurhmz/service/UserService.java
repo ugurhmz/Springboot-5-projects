@@ -50,18 +50,17 @@ public class UserService {
 
 
     // FIND BY USER ID
-    public User findByUserId(Long id) {
+    public UserDTO findByUserId(Long id) {
 
         if(id != null || id >0){
             Optional<User>    getUserByID  =   userRepository.findById(id);
-            System.out.println(getUserByID);
+            System.out.println("getUserByID.get() --> "+getUserByID.get());
 
             if(getUserByID.isPresent()){
-                return getUserByID.get();
+               return modelMapper.map(getUserByID.get(), UserDTO.class);
             }
         }
-
-        return  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        return null;
     }
 
 
