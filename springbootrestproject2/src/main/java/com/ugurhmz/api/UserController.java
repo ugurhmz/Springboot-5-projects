@@ -23,6 +23,8 @@ public class UserController {
     }
 
 
+
+
     // CREATE USER
     @PostMapping("/create-user")
     public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO) {
@@ -32,15 +34,17 @@ public class UserController {
 
 
 
+
+
+
     // GET ALL USERS
     @GetMapping("/users-list")
-    public ResponseEntity<List<User>> getUsersList(){
-       List<User> usersList =  userService.findUsersList();
-
-        System.out.println(ResponseEntity.ok());
-
-       return ResponseEntity.ok(usersList);
+    public ResponseEntity<List<UserDTO>> getUsersList(){
+       List<UserDTO> userDTOS = userService.findUsersList();
+       return ResponseEntity.ok(userDTOS);
     }
+
+
 
 
 
@@ -52,6 +56,9 @@ public class UserController {
 
       return ResponseEntity.ok(getUserById);
     }
+
+
+
 
 
 

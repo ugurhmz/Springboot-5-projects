@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,10 +32,21 @@ public class UserService {
     }
 
 
+
+
     // GET USERS LIST
-    public List<User> findUsersList() {
-       return userRepository.findAll();
+    public List<UserDTO> findUsersList() {
+       List<User> usersList = userRepository.findAll();
+
+       List<UserDTO> userDTOS =    usersList.stream()
+                                            .map( user -> modelMapper.map(user, UserDTO.class) )
+                                            .collect(Collectors.toList());
+       System.out.println("userDTOS : "+userDTOS);
+       return userDTOS;
     }
+
+
+
 
 
     // FIND BY USER ID
@@ -51,6 +63,8 @@ public class UserService {
 
         return  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
     }
+
+
 
 
 
