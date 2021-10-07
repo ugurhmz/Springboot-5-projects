@@ -38,7 +38,7 @@ public class Address implements Serializable {
     @JoinColumn(name="person_address_id")
     private Person person;
 
-    enum AddressType {
+    public enum AddressType {
         HOME_ADDRESS,
         WORKPLACE_ADDRESS,
         OTHER
