@@ -1,27 +1,31 @@
 package com.ugurhmz.model;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="T_USER")
-@Data
-public class User {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class User extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name="user_seq_gen", sequenceName="user_gen", initialValue=100, allocationSize = 1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "user_seq_gen")
+    @SequenceGenerator(name="user_seq_gen", sequenceName = "user_gen" ,allocationSize=1, initialValue = 100)
+    @GeneratedValue(generator="user_seq_gen", strategy= GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(length=100, name="first_name")
+    @Column(length=100)
     private String firstName;
 
-    @Column(length=200, name="last_name")
+    @Column(length=200)
     private String lastName;
 
-    @Column(length=200, name="e-mail")
+    @Column(length=200)
     private String email;
 
 }
