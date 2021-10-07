@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +24,11 @@ public class UserService {
         user.setCreatedBy("ADMIN");
 
         return userRepository.save(user);
+    }
+
+
+    // GET USERS LIST
+    public List<User> findUsersList() {
+       return userRepository.findAll();
     }
 }
