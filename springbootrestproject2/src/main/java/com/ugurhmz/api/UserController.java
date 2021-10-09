@@ -4,6 +4,8 @@ package com.ugurhmz.api;
 import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,6 +79,26 @@ public class UserController {
       Boolean deleteStatus = userService.deleteUser(id);
 
       return ResponseEntity.ok(deleteStatus);
+    }
+
+
+    //PAGINATION
+    @GetMapping("/pagination")
+    public ResponseEntity<Page<User>> pagination(
+            @RequestParam  int currentPage,
+            @RequestParam int pageSize)
+    {
+
+        return ResponseEntity.ok(userService.mypagination(currentPage, pageSize));
+    }
+
+
+
+
+    // PAGINATION TWO
+    @GetMapping("/pagination/by-pageable")
+    public ResponseEntity<List<UserDTO>> paginatoinByPageable(Pageable pageable){
+        return ResponseEntity.ok(userService.paginationWithPageable(pageable));
     }
 
 }

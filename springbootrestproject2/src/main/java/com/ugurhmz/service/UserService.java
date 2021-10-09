@@ -2,11 +2,13 @@ package com.ugurhmz.service;
 
 
 import com.ugurhmz.dto.UserDTO;
-import com.ugurhmz.exception.ResourceNotFoundException;
 import com.ugurhmz.model.User;
 import com.ugurhmz.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -102,6 +104,27 @@ public class UserService {
           return true;
        }
         return false;
+    }
+
+
+
+    //PAGINATION
+    public Page<User> mypagination(int currentPage, int pageSize){
+        Pageable pageable = PageRequest.of(currentPage, pageSize);
+        return userRepository.findAll(pageable);
+    }
+
+
+
+    // PAGINATION WITH Pageable & DTO ~~>  /project-two/user/pagination/by-pageable?page=0&size=5&sort=firstName
+    public List<UserDTO> paginationWithPageable(Pageable pageable) {
+        // 1- Listeyi komple al.
+        Page<User> pageUsersList = userRepository.findAll(pageable);
+
+        // Listeyi stream ile akışa sok, dtoya çevir, sonrada dto liste dönüştür.
+        List<UserDTO> userDTOS = pageUsersList.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
+
+        return userDTOS;
     }
 }
 
