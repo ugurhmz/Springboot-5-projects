@@ -11,6 +11,7 @@
     <modules>
         <module>springbootrestapi</module>
         <module>springbootrestproject2</module>
+        <module>springboot-vuejs-crud</module>
     </modules>
 
 
