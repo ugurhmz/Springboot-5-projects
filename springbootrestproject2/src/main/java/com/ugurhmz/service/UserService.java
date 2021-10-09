@@ -4,6 +4,7 @@ package com.ugurhmz.service;
 import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.repository.UserRepository;
+import com.ugurhmz.util.CustomPage;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -126,6 +128,24 @@ public class UserService {
 
         return userDTOS;
     }
+
+
+
+
+
+    // CUSTOMPAGE<DTO>
+    public CustomPage<UserDTO> customPagination(Pageable pageable){
+        Page<User> usersData = userRepository.findAll(pageable);
+        System.out.println("usersData : "+usersData);
+
+        UserDTO[] dtos = modelMapper.map(usersData.getContent(), UserDTO[].class);
+
+        return new CustomPage<UserDTO>(usersData, Arrays.asList(dtos));
+    }
+
+
+
+
 }
 
 

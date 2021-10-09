@@ -4,6 +4,7 @@ package com.ugurhmz.api;
 import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.service.UserService;
+import com.ugurhmz.util.CustomPage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -100,6 +101,17 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> paginatoinByPageable(Pageable pageable){
         return ResponseEntity.ok(userService.paginationWithPageable(pageable));
     }
+
+
+
+
+
+    // CUSTOMPAGE<DTO>    ~~> Gönderilen DTO'ya göre  kayıtları getirir.
+    @GetMapping("/pagination/custompage")
+    public ResponseEntity<CustomPage<UserDTO>> customPage(Pageable pageable){
+        return ResponseEntity.ok(userService.customPagination(pageable));
+    }
+
 
 }
 
