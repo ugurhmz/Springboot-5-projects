@@ -1,4 +1,4 @@
-package com.ugurhmz.exception;
+package com.ugurhmz.advice;
 
 
 

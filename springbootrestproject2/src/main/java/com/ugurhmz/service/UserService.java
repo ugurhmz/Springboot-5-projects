@@ -1,6 +1,7 @@
 package com.ugurhmz.service;
 
 
+import com.ugurhmz.advice.ResourceNotFoundException;
 import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.repository.UserRepository;
@@ -53,18 +54,19 @@ public class UserService {
 
 
 
+
     // FIND BY USER ID
-    public UserDTO findByUserId(Long id) {
+    public UserDTO getUserwithId(Long id) {
+        System.out.println(id);
 
-        if(id != null || id >0){
-            Optional<User>    getUserByID  =   userRepository.findById(id);
-            System.out.println("getUserByID.get() --> "+getUserByID.get());
+        Optional<User> user = userRepository.findById(id);
 
-            if(getUserByID.isPresent()){
-               return modelMapper.map(getUserByID.get(), UserDTO.class);
-            }
+        if(user.isPresent()){
+            return modelMapper.map(user.get(),UserDTO.class);
         }
-        return null;
+
+       // throw new RuntimeException("Runtime Exception -> ERR");
+        throw new ResourceNotFoundException("User Not Found!");
     }
 
 
