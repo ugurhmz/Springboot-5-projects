@@ -4,7 +4,7 @@
     :headers="headers"
     :items="users">
 
-      <template v-slot:[`item-edit`]="{ item }">
+      <template v-slot:[`item.edit`]="{ item }">
           <v-btn color="success" @click="editItem(item)"> Edit </v-btn>
       </template>
 
@@ -24,12 +24,12 @@ export default {
     return {
 
       headers: [
-
-        { text: 'Name', value: 'name' },
-        { text: 'E-mail', value: 'email' },
-        { text: 'Password', value: 'password' },
-        { text: 'Edit', value: 'edit' },
-        { text: 'Delete', value: 'delete' },
+        { text: "Id", value: "id" },
+        { text: "Name", value: "name" },
+        { text: "E-mail", value: "email" },
+        { text: "Password", value: "password" },
+        { text: "Edit", value: "edit" },
+        { text: "Delete", value: "delete" },
       ],
     }
   },
@@ -55,18 +55,19 @@ export default {
 
           await this.$axios.delete("http://localhost:8085/crud/users/delete-user/"+id);
 
+
           this.$store.commit(
-            "user/storeData",
+            "users/storeData",
             (await this.$axios.get("http://localhost:8085/crud/users/users-list/")).data
           )
 
       },
 
       async editItem(user) {
-          this.$store.commit("users/storeId",user.id);
-          this.$store.commit("users/storeName",user.name);
-          this.$store.commit("users/storeEmail",user.email);
-          this.$store.commit("users/storePassword",user.password);
+          this.$store.commit("user/storeId",user.id);
+          this.$store.commit("user/storeName",user.name);
+          this.$store.commit("user/storeEmail",user.email);
+          this.$store.commit("user/storePassword",user.password);
       }
 
   }

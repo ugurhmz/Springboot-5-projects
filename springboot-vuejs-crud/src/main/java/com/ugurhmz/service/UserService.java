@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +45,40 @@ public class UserService {
         return userDTOS;
 
     }
+
+
+    // UPDATE USER
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+
+        // 1- id'li user bul.
+        Optional<User> user =  userRepo.findById(id);
+
+        // 2- id'si verilen kaydımız varsa, parametre olarak gelen nesnemizle güncelleyelim.
+        if(user.isPresent()){
+                user.get().setName(userDTO.getName());
+                user.get().setEmail(userDTO.getEmail());
+                user.get().setPassword(userDTO.getPassword());
+                user.get().setUpdatedBy("Admin");
+                user.get().setUpdatedAt(new Date());
+
+         return modelMapper.map(userRepo.save(user.get()), UserDTO.class);
+        }
+
+        return null;
+    }
+
+    // DELETE USER
+    public Boolean deleteUser(Long id){
+       Optional<User>  user =   userRepo.findById(id);
+
+       if(user.isPresent()){
+            userRepo.deleteById(id);
+            return true;
+       }
+
+       return false;
+    }
+
 
 
 }
