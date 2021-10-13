@@ -1,4 +1,5 @@
 # nuxtfrontend
+![crudvue](https://user-images.githubusercontent.com/13710309/136691913-99fcfc68-3755-4a17-be68-2a28813e5331.PNG)
 
 ## Build Setup
 
