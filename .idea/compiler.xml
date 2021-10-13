@@ -10,6 +10,7 @@
         <module name="springbootrestproject2" />
         <module name="springbootrestapi" />
         <module name="springboot-vuejs-crud" />
+        <module name="springboot-restapi-validation-errhandle" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +20,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="restapi" options="-parameters" />
+      <module name="springboot-restapi-validation-errhandle" options="-parameters" />
       <module name="springboot-vuejs-crud" options="-parameters" />
       <module name="springbootrestapi" options="-parameters" />
       <module name="springbootrestproject2" options="-parameters" />
