@@ -1,4 +1,4 @@
-package com.ugurhmz.model;
+package com.ugurhmz.enums;
 
 
 

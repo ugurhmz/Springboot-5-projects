@@ -1,6 +1,7 @@
 package com.ugurhmz.model;
 
 
+import com.ugurhmz.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class User {
 
 
     //roles
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(value=EnumType.STRING)
     @Column(name="role", nullable = false)
     private Role role;
 
