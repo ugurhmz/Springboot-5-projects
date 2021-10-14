@@ -7,10 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springbootrestproject2" />
-        <module name="springbootrestapi" />
-        <module name="springboot-vuejs-crud" />
         <module name="springboot-restapi-validation-errhandle" />
+        <module name="springbootrestapi" />
+        <module name="springbootrestproject2" />
+        <module name="springboot-vuejs-crud" />
+        <module name="springboot-restapi-device-seller" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="restapi" options="-parameters" />
+      <module name="springboot-restapi-device-seller" options="-parameters" />
       <module name="springboot-restapi-validation-errhandle" options="-parameters" />
       <module name="springboot-vuejs-crud" options="-parameters" />
       <module name="springbootrestapi" options="-parameters" />

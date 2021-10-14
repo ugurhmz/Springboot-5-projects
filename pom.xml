@@ -13,6 +13,7 @@
         <module>springbootrestproject2</module>
         <module>springboot-vuejs-crud</module>
         <module>springboot-restapi-validation-errhandle</module>
+        <module>springboot-restapi-device-seller</module>
     </modules>
 
 
