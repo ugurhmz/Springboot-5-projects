@@ -9,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Service
@@ -24,6 +26,7 @@ public class UserService {
     private final ModelMapper modelMapper;
 
 
+
     // CREATE USER
     public UserSaveDTO createUser(UserSaveDTO userSaveDTO) {
         User user = modelMapper.map(userSaveDTO, User.class);
@@ -34,4 +37,23 @@ public class UserService {
 
         return modelMapper.map(userRepository.save(user),UserSaveDTO.class);
     }
+
+
+
+
+    // FIND BY USERNAME
+    public Optional<User>  findByUserName(String username){
+        return userRepository.findByUsername(username);
+    }
+
+
+
+    // UPDATE ROLE , @Transaction  -> required to update/delete query.
+    @Transactional
+    public void updateRole(Role newRole, String username ) {
+        userRepository.updateUserRole(username, newRole);
+    }
+
+
+
 }
