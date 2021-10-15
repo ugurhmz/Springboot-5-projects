@@ -1,7 +1,7 @@
 package com.ugurhmz.controller;
 
 
-import com.ugurhmz.dto.UserSaveDTO;
+import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +21,8 @@ public class UserController {
 
     // SAVE USER
     @PostMapping("/save-user")
-    public ResponseEntity<UserSaveDTO> saveUser(@RequestBody UserSaveDTO userSaveDTO){
-      UserSaveDTO createUser =   userService.createUser(userSaveDTO);
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO){
+      UserDTO createUser =   userService.createUser(userDTO);
       return ResponseEntity.ok(createUser);
     }
 

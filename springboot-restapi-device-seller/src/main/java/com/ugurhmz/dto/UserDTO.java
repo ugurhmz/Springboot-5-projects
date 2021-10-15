@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class UserSaveDTO {
+public class UserDTO {
 
 
     private String name;
