@@ -22,12 +22,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-
-    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private  CustomUserDetailsService customUserDetailsService;
 
 
     @Override
