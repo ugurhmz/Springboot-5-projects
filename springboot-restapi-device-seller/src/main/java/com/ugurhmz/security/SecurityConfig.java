@@ -1,11 +1,13 @@
 package com.ugurhmz.security;
 
 
+import com.ugurhmz.enums.Role;
 import com.ugurhmz.security.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             http.authorizeRequests()
                     .antMatchers("/api/authentication/**").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/device/**").permitAll()
+                    .antMatchers("/api/device/**").hasRole(Role.ADMIN.name())
                     .anyRequest().authenticated();
 
             http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

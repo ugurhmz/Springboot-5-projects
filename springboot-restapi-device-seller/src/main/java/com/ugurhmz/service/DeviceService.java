@@ -8,11 +8,15 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -36,21 +40,33 @@ public class DeviceService {
     }
 
 
-    // FIND ALL DEVICES
-    public List<DeviceDTO> findAllDevices(){
-       return deviceRepository.findAll().stream().map( device -> modelMapper.map( device, DeviceDTO.class)).collect(Collectors.toList());
+    // PAGINATION ALL DEVICES
+    public List<DeviceDTO> paginationWithPageable(Pageable pageable) {
+        //1- Listeyi komple al.
+        Page<Device>  pageDevicesList = deviceRepository.findAll(pageable);
+
+
+        //2- Listeyi stream ile akışa sok, dtoya çevir,  sonrada dto liste dönüştür.
+        List<DeviceDTO> deviceDTOS = pageDevicesList.stream().map( device -> modelMapper.map(device, DeviceDTO.class)).collect(Collectors.toList());
+
+
+        return deviceDTOS;
     }
-
-
 
 
     // DELETE DEVICE
     @SneakyThrows
     @Transactional
-    public void deleteUser(Long id)  {
-        Device device = deviceRepository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found!!"));
-        deviceRepository.deleteById(device.getId());
+    public Boolean deleteDevice(Long id)  {
+        Optional<Device>  getDeviceByIdForDelete = deviceRepository.findById(id);
 
+        if(getDeviceByIdForDelete.isPresent()){
+            deviceRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
+
 
 }

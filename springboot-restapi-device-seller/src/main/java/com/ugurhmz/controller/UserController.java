@@ -2,16 +2,17 @@ package com.ugurhmz.controller;
 
 
 import com.ugurhmz.dto.UserDTO;
+
+import com.ugurhmz.enums.Role;
+import com.ugurhmz.security.UserPrincipal;
 import com.ugurhmz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -24,6 +25,15 @@ public class UserController {
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO){
       UserDTO createUser =   userService.createUser(userDTO);
       return ResponseEntity.ok(createUser);
+    }
+
+
+
+    // CHANGE ROLE
+    @PutMapping("change/{role}")
+    public ResponseEntity<?> changeRole(@AuthenticationPrincipal UserPrincipal userPrincipal, @PathVariable Role role){
+         userService.updateRole(role, userPrincipal.getUsername());
+         return ResponseEntity.ok(true);
     }
 
 }
