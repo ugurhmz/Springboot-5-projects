@@ -16,8 +16,8 @@ public class PurchaseDTO {
     private Long id;
     private Long userId;
     private Long deviceId;
-    private User user;
-    private Device device;
+    public User user;
+    public Device device;
     private Double price;
     private String color;
     private LocalDateTime purchaseTime;

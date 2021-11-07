@@ -7,6 +7,7 @@ import com.ugurhmz.model.Purchase;
 import com.ugurhmz.model.User;
 import com.ugurhmz.repository.PurchaseRepository;
 import com.ugurhmz.repository.UserRepository;
+import com.ugurhmz.repository.projection.PurchaseItem;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -39,13 +40,13 @@ public class PurchaseService {
 
 
     // GET LIST PURCHASES LIST
-    public List<PurchaseDTO> findPurchaseItemsOfUSer(Long userId){
+    public List<PurchaseItem> findPurchaseItemsOfUSer(Long userId){
 
       User user =  userRepo.findById(userId).orElseThrow(() -> new NotFoundException(userId+" Not Found!!"));
 
         return purchaseRepo.findAllPurchasesOfUser(user.getId())
                             .stream()
-                            .map( item -> modelMapper.map(item, PurchaseDTO.class))
+                            .map( item -> modelMapper.map(item, PurchaseItem.class))
                             .collect(Collectors.toList());
     }
 

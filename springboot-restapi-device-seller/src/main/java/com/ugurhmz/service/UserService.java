@@ -7,12 +7,17 @@ import com.ugurhmz.model.User;
 import com.ugurhmz.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -38,7 +43,17 @@ public class UserService {
         return modelMapper.map(userRepository.save(user), UserDTO.class);
     }
 
+    // ALL USERS
+    public List<UserDTO> paginationUsersList(Pageable pageable) {
 
+        // 1-listeyi komple al.
+        Page<User> usersList = userRepository.findAll(pageable);
+
+        // 2- Listeyi stream ile akışa sok, dto'ya çevir. sonra dto listesine dönüştür.
+        List<UserDTO> userDTOS =   usersList.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
+
+        return userDTOS;
+    }
 
 
     // FIND BY USERNAME

@@ -7,9 +7,13 @@ import com.ugurhmz.enums.Role;
 import com.ugurhmz.security.UserPrincipal;
 import com.ugurhmz.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -27,6 +31,12 @@ public class UserController {
       return ResponseEntity.ok(createUser);
     }
 
+
+
+    @GetMapping("/users-list")  // localhost:8083/api/user/users-list?page=0&size=5
+    public ResponseEntity<List<UserDTO>> usersList(Pageable pageable){
+        return ResponseEntity.ok(userService.paginationUsersList(pageable));
+    }
 
 
     // CHANGE ROLE

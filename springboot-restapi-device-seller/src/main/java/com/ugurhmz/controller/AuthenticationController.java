@@ -38,8 +38,8 @@ public class AuthenticationController {
 
 
     //GIRIS YAP
-    @PostMapping("sign-in")
-    public ResponseEntity<?> signIn(@RequestBody User user) {
+    @PostMapping("/sign-in")
+    public ResponseEntity<?> signIn(@RequestBody UserDTO user) {
 
         return new ResponseEntity<>(authenticationService.signInReturnJWT(user), HttpStatus.OK);
     }

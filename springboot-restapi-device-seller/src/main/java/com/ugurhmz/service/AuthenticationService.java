@@ -1,11 +1,13 @@
 package com.ugurhmz.service;
 
 
+import com.ugurhmz.dto.UserDTO;
 import com.ugurhmz.model.User;
 import com.ugurhmz.security.UserPrincipal;
 import com.ugurhmz.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,10 +21,10 @@ public class AuthenticationService {
 
     private  final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
-
+    private final ModelMapper modelMapper;
 
     // SIGN IN JWT
-    public User signInReturnJWT(User signInRequest){
+    public UserDTO signInReturnJWT(UserDTO signInRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword())
 
@@ -31,10 +33,13 @@ public class AuthenticationService {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         String jwt = jwtProvider.generateToken(userPrincipal);
 
+
+
         User signInUser = userPrincipal.getUser();
         signInUser.setToken(jwt);
 
-        return signInUser;
+
+        return modelMapper.map(signInUser, UserDTO.class);
     }
 
 

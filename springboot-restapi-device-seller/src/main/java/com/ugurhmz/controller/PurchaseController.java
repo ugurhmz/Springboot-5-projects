@@ -4,6 +4,7 @@ package com.ugurhmz.controller;
 import com.ugurhmz.dto.PurchaseDTO;
 import com.ugurhmz.model.Purchase;
 import com.ugurhmz.model.User;
+import com.ugurhmz.repository.projection.PurchaseItem;
 import com.ugurhmz.security.UserPrincipal;
 import com.ugurhmz.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class PurchaseController {
 
     // GET LIST PURCHASES LIST
     @GetMapping
-    public ResponseEntity<List<PurchaseDTO>> gettAllPurchasesOfUser(@AuthenticationPrincipal UserPrincipal userPrincipal){
+    public ResponseEntity<List<PurchaseItem>> gettAllPurchasesOfUser(@AuthenticationPrincipal UserPrincipal userPrincipal){
         return ResponseEntity.ok(purchaseService.findPurchaseItemsOfUSer(userPrincipal.getId()));
     }
 
